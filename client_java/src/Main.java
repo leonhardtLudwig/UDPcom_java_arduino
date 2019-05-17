@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Random;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.util.Scanner;
 
 public class Main {
 
@@ -15,10 +16,13 @@ public class Main {
     private static boolean hasBeenSetupped = false;
     private static Date date;
     private static int lux;
+    private static Scanner t = new Scanner(System.in);
 
     public static void main(String[] args) throws Exception{
+        System.out.println("Insert Server IP");
+        String ip = t.nextLine();
         clientSocket = new DatagramSocket();
-        IPAddress = InetAddress.getByName("192.168.1.105");
+        IPAddress = InetAddress.getByName(ip);
         String buf = new String();
         System.out.println("Client running at "+IPAddress);
         while(!hasBeenSetupped) {
@@ -42,6 +46,9 @@ public class Main {
             System.out.println();
             lux = rand.nextInt(999);
             sendInformations();
+            if (lux>500){
+                fileRequest();
+            }
             Thread.sleep(2000);
         }
     }
@@ -128,6 +135,10 @@ public class Main {
 
     private static boolean youCanSend(){
         return bytesCompare(receiveData,"1".getBytes());
+    }
+
+    private static void fileRequest(){
+        sendRequest("GETFILE");
     }
 
 }

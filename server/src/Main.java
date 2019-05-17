@@ -3,16 +3,20 @@ import java.io.*;
 import java.net.*;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.util.Scanner;
 public class Main {
 
     private static boolean setupRequest = false;
     private static final byte[] getDate = {'G','E','T','D','A','T','E'};
     private static final byte[] date = {'D','A','T','E'};
+    private static final byte[] getFile = {'G','E','T','F','I','L','E'};
     private static byte[] receiveData;
     private static byte[] sendData;
     private static DatagramSocket serverSocket;
     private static DatagramPacket receivePacket;
     private static InetAddress IPAddress;
+    private static OutputStream ouStream = null;
+    private static Scanner t = new Scanner(System.in);
 
 
     public static void main(String[] args) throws Exception{
@@ -31,17 +35,19 @@ public class Main {
             serverSocket.receive(receivePacket);
             //String clientRequest = new String( receivePacket.getData());
             byte[] requestData = receivePacket.getData();
-            System.out.println("Request data "+(new String(requestData)));
+            System.out.println("Arrived data contains: "+(new String(requestData)));
             if(bytesCompare(requestData,getDate)){
+                System.out.println("Date request");
                 sendDate();
-            }else{
-                sendResponse("WRONG REQUEST");
+                requestData = null;
             }
-            if (bytesCompare(requestData,date)){
-                //System.out.println("alright");
+            if (requestData!=null&&bytesCompare(requestData,date)){
+                System.out.println("Client information");
                 append(new String(requestData));
-            }else{
-                sendResponse("WRONG REQUEST");
+            }
+            if(requestData!=null&&bytesCompare(requestData,getFile)){
+                System.out.println("File request");
+                sendFile();
             }
 
         }
@@ -71,7 +77,6 @@ public class Main {
     }
 
     private static boolean bytesCompare(byte[]data1,byte[]data2){
-        System.out.println("comparing: "+(new String (data1))+" "+(new String (data2)));
         boolean doesItMatch = false;
         for(int i = 0; !doesItMatch && (i<data1.length && i<data2.length);i++){
             doesItMatch = data2[i]==data1[i];
@@ -104,5 +109,19 @@ public class Main {
         String date = server_CurrentDate();
         sendResponse(date);
     }
-    
+
+    private static void sendFile(){
+        try{
+        BufferedReader fr = new BufferedReader(new InputStreamReader(new FileInputStream(new File("data.txt"))));
+        String line = "";
+        try{
+        while((line = fr.readLine()) != null) {
+            System.out.println(line);
+        }
+        }catch (IOException e){
+            System.out.println("Corrupted file");
+        }}catch(FileNotFoundException e){
+            System.out.println("File doesn't exist");
+        }
+    }
 }

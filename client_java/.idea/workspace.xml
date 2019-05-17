@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04d72946-dfef-4a43-9690-9472b593bc9e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../server/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../server/data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/Main.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,7 +22,7 @@
     <session id="1230148196">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.8" value="1" />
           <entry key="project.opened" value="2" />
@@ -27,12 +30,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1820" />
+          <entry key="java" value="1934" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1820" />
+          <entry key="JAVA" value="1934" />
         </counts>
       </usages-collector>
     </session>
@@ -42,16 +45,16 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="96" column="39" selection-start-line="96" selection-start-column="39" selection-end-line="96" selection-end-column="39" />
+            <state relative-caret-position="634">
+              <caret line="140" column="28" selection-start-line="140" selection-start-column="28" selection-end-line="140" selection-end-column="28" />
               <folding>
-                <element signature="method#main#0;class#Main#0" />
                 <element signature="method#isDate#0;class#Main#0" />
                 <element signature="method#bytesCompare#0;class#Main#0" />
-                <element signature="method#sendRequest#0;class#Main#0" />
                 <element signature="method#getResponse#0;class#Main#0" />
                 <element signature="method#sendInformations#0;class#Main#0" />
                 <element signature="method#currentDate#0;class#Main#0" />
+                <element signature="e#4969#4970#0" expanded="true" />
+                <element signature="e#4998#4999#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -75,8 +78,9 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="953" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="784" />
+    <option name="y" value="13" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
@@ -94,7 +98,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558118205514" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558133392008" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -136,17 +140,17 @@
       <option name="presentableId" value="Default" />
       <updated>1558089492572</updated>
       <workItem from="1558089495174" duration="14787000" />
-      <workItem from="1558118369202" duration="4009000" />
+      <workItem from="1558118369202" duration="6996000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18796000" />
+    <option name="totallyTimeSpent" value="21783000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="953" y="0" width="974" height="1047" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.024070023" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12739871" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -155,7 +159,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33296824" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.329718" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -186,16 +190,16 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="96" column="39" selection-start-line="96" selection-start-column="39" selection-end-line="96" selection-end-column="39" />
+        <state relative-caret-position="634">
+          <caret line="140" column="28" selection-start-line="140" selection-start-column="28" selection-end-line="140" selection-end-column="28" />
           <folding>
-            <element signature="method#main#0;class#Main#0" />
             <element signature="method#isDate#0;class#Main#0" />
             <element signature="method#bytesCompare#0;class#Main#0" />
-            <element signature="method#sendRequest#0;class#Main#0" />
             <element signature="method#getResponse#0;class#Main#0" />
             <element signature="method#sendInformations#0;class#Main#0" />
             <element signature="method#currentDate#0;class#Main#0" />
+            <element signature="e#4969#4970#0" expanded="true" />
+            <element signature="e#4998#4999#0" expanded="true" />
           </folding>
         </state>
       </provider>
