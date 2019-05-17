@@ -18,8 +18,9 @@ public class Main {
 
     public static void main(String[] args) throws Exception{
         clientSocket = new DatagramSocket();
-        IPAddress = InetAddress.getByName("localhost");
+        IPAddress = InetAddress.getByName("192.168.1.105");
         String buf = new String();
+        System.out.println("Client running at "+IPAddress);
         while(!hasBeenSetupped) {
 
             sendData = new byte[1024];
@@ -36,10 +37,10 @@ public class Main {
         System.out.println(date.toString());
         Random rand = new Random();
         while(true){
-            sendData = new byte[1024];
-            receiveData = new byte[1024];
+            sendData = new byte[35];
+            receiveData = new byte[35];
             System.out.println();
-            lux = rand.nextInt(1024);
+            lux = rand.nextInt(999);
             sendInformations();
             Thread.sleep(2000);
         }

@@ -12,16 +12,21 @@ public class Main {
     private static byte[] sendData;
     private static DatagramSocket serverSocket;
     private static DatagramPacket receivePacket;
+    private static InetAddress IPAddress;
 
 
     public static void main(String[] args) throws Exception{
-        serverSocket = new DatagramSocket(9876);
+        IPAddress = InetAddress.getByName("192.168.1.105");
+        //serverSocket = new DatagramSocket(9876);
+        //192.168.1.105
+        serverSocket = new DatagramSocket(9876,IPAddress);
         String res = null;
+        System.out.println("Server running at "+serverSocket.getLocalAddress()+":"+serverSocket.getLocalPort());
         while(true)
         {
             System.out.println();
-            receiveData = new byte[1024];
-            sendData = new byte[1024];
+            receiveData = new byte[35];
+            sendData = new byte[35];
             receivePacket = new DatagramPacket(receiveData, receiveData.length);
             serverSocket.receive(receivePacket);
             //String clientRequest = new String( receivePacket.getData());
@@ -33,7 +38,7 @@ public class Main {
                 sendResponse("WRONG REQUEST");
             }
             if (bytesCompare(requestData,date)){
-                System.out.println("alright");
+                //System.out.println("alright");
                 append(new String(requestData));
             }else{
                 sendResponse("WRONG REQUEST");
@@ -43,12 +48,11 @@ public class Main {
     }
 
     private static void append(String s ) throws IOException {
-        String str = s;
-        BufferedWriter writer = new BufferedWriter(new FileWriter("data.csv", true));
-        writer.append(' ');
-        writer.append(str);
-
-        writer.close();
+        File file = new File("data.txt");
+        FileWriter fw = new FileWriter(file, true);
+        PrintWriter pw = new PrintWriter(fw);
+        pw.println(s);
+        pw.close();
     }
 
     private static String waitInfo(){
