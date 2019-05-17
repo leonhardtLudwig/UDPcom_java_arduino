@@ -1,5 +1,10 @@
 import java.io.*;
 import java.net.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class Main {
 
@@ -8,24 +13,35 @@ public class Main {
     private static InetAddress IPAddress;
     private static DatagramSocket clientSocket;
     private static boolean hasBeenSetupped = false;
+    private static Date date;
+    private static int lux;
 
     public static void main(String[] args) throws Exception{
         clientSocket = new DatagramSocket();
         IPAddress = InetAddress.getByName("localhost");
+        String buf = new String();
         while(!hasBeenSetupped) {
 
             sendData = new byte[1024];
             receiveData = new byte[1024];
 
             sendRequest("GETDATE");
-            getResponse();
+            buf = getResponse();
             hasBeenSetupped = isDate();
             Thread.sleep(2000);
             //clientSocket.close();
         }
         System.out.println("Client Setup Done!");
+        date = new SimpleDateFormat("dd/MM/yyyy_HH:mm:ss").parse(buf);
+        System.out.println(date.toString());
+        Random rand = new Random();
         while(true){
-
+            sendData = new byte[1024];
+            receiveData = new byte[1024];
+            System.out.println();
+            lux = rand.nextInt(1024);
+            sendInformations();
+            Thread.sleep(2000);
         }
     }
 
@@ -89,6 +105,28 @@ public class Main {
             System.out.println("No datagram received");
         }
         return response;
+    }
+
+    private static void sendInformations(){
+        System.out.println("Date: "+currentDate()+", Lux: "+lux);
+        sendData = ("Date: "+currentDate()+", Lux: "+lux).getBytes();
+        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9876);
+        try{
+            System.out.println("Sending: "+(new String(sendData)));
+            clientSocket.send(sendPacket);
+        }catch (IOException e){
+            System.out.println("ERROR!DATAGRAM HAS NOT BEEN SENT");
+        }
+    }
+
+    private static String currentDate() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy_HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        return dtf.format(now);
+    }
+
+    private static boolean youCanSend(){
+        return bytesCompare(receiveData,"1".getBytes());
     }
 
 }

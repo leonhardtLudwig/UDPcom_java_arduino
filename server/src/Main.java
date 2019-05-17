@@ -7,6 +7,7 @@ public class Main {
 
     private static boolean setupRequest = false;
     private static final byte[] getDate = {'G','E','T','D','A','T','E'};
+    private static final byte[] date = {'D','A','T','E'};
     private static byte[] receiveData;
     private static byte[] sendData;
     private static DatagramSocket serverSocket;
@@ -15,18 +16,25 @@ public class Main {
 
     public static void main(String[] args) throws Exception{
         serverSocket = new DatagramSocket(9876);
-
+        String res = null;
         while(true)
         {
+            System.out.println();
             receiveData = new byte[1024];
             sendData = new byte[1024];
             receivePacket = new DatagramPacket(receiveData, receiveData.length);
             serverSocket.receive(receivePacket);
             //String clientRequest = new String( receivePacket.getData());
             byte[] requestData = receivePacket.getData();
-            System.out.println(new String(requestData));
+            System.out.println("Request data "+(new String(requestData)));
             if(bytesCompare(requestData,getDate)){
                 sendDate();
+            }else{
+                sendResponse("WRONG REQUEST");
+            }
+            if (bytesCompare(requestData,date)){
+                System.out.println("alright");
+                append(new String(requestData));
             }else{
                 sendResponse("WRONG REQUEST");
             }
@@ -34,7 +42,32 @@ public class Main {
         }
     }
 
+    private static void append(String s ) throws IOException {
+        String str = s;
+        BufferedWriter writer = new BufferedWriter(new FileWriter("data.csv", true));
+        writer.append(' ');
+        writer.append(str);
+
+        writer.close();
+    }
+
+    private static String waitInfo(){
+        System.out.println("Waiting info from client...");
+        String response = null;
+        try {
+            DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+            serverSocket.receive(receivePacket);
+            response = new String(receivePacket.getData());
+            receiveData = receivePacket.getData();
+            System.out.println("Client Data" + response);
+        }catch (IOException e){
+            System.out.println("No datagram received");
+        }
+        return response;
+    }
+
     private static boolean bytesCompare(byte[]data1,byte[]data2){
+        System.out.println("comparing: "+(new String (data1))+" "+(new String (data2)));
         boolean doesItMatch = false;
         for(int i = 0; !doesItMatch && (i<data1.length && i<data2.length);i++){
             doesItMatch = data2[i]==data1[i];
@@ -51,7 +84,7 @@ public class Main {
         //serverSocket.send(sendPacket);
         try{
             serverSocket.send(sendPacket);
-            System.out.println("DATAGRAM SENT");
+            System.out.println("DATAGRAM SENT: "+ s);
         }catch (IOException e){
             System.out.println("ERROR!DATAGRAM HAS NOT BEEN SENT");
         }
