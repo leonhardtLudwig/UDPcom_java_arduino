@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04d72946-dfef-4a43-9690-9472b593bc9e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../server/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/data.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../server/data.txt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -140,16 +136,15 @@
       <option name="presentableId" value="Default" />
       <updated>1558089492572</updated>
       <workItem from="1558089495174" duration="14787000" />
-      <workItem from="1558118369202" duration="2664000" />
+      <workItem from="1558118369202" duration="4009000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17451000" />
+    <option name="totallyTimeSpent" value="18796000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="953" y="0" width="974" height="1047" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.024070023" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
