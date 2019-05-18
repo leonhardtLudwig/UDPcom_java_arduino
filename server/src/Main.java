@@ -23,8 +23,6 @@ public class Main {
 
     public static void main(String[] args) throws Exception{
         IPAddress = InetAddress.getByName("192.168.8.25");
-        //serverSocket = new DatagramSocket(9876);
-        //192.168.1.105
         serverSocket = new DatagramSocket(9876,IPAddress);
         String res = null;
         System.out.println("Server running at "+serverSocket.getLocalAddress()+":"+serverSocket.getLocalPort());
@@ -35,7 +33,6 @@ public class Main {
             sendData = new byte[35];
             receivePacket = new DatagramPacket(receiveData, receiveData.length);
             serverSocket.receive(receivePacket);
-            //String clientRequest = new String( receivePacket.getData());
             byte[] requestData = receivePacket.getData();
             System.out.println("Arrived data contains: "+(new String(requestData)));
             if(requestData!=null&&bytesCompare(requestData,getDate)){
@@ -75,10 +72,8 @@ public class Main {
     private static void sendResponse(String s){
         InetAddress IPAddress = receivePacket.getAddress();
         int port = receivePacket.getPort();
-        //String capitalizedSentence = r.toUpperCase();
         sendData = s.getBytes();
         DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-        //serverSocket.send(sendPacket);
         try{
             serverSocket.send(sendPacket);
             System.out.println("DATAGRAM SENT: "+ s);
@@ -102,7 +97,6 @@ public class Main {
 
         try{
             byte[]send = Files.readAllBytes(Paths.get("data.txt"));
-            //byte[]send = readFileToByteArray(new File("data.txt"));
             System.out.println("File size "+send.length+" bytes");
             InetAddress IPAddress = receivePacket.getAddress();
             int port = receivePacket.getPort();

@@ -26,15 +26,12 @@ public class Main {
         String buf = new String();
         System.out.println("Client running at "+IPAddress);
         while(!hasBeenSetupped) {
-
             sendData = new byte[2000];
             receiveData = new byte[2000];
-
             sendRequest("GETDATE");
             buf = getResponse();
             hasBeenSetupped = isDate();
             Thread.sleep(2000);
-            //clientSocket.close();
         }
         System.out.println("Client Setup Done!");
         date = new SimpleDateFormat("dd/MM/yyyy_HH:mm:ss").parse(buf);
@@ -57,7 +54,6 @@ public class Main {
 
 
     private static boolean isDate(){
-        //dd/MM/yyyy_HH:mm:ss
         String rec = new String(receiveData);
         String format = "dd/MM/yyyy_HH:mm:ss";
             if (rec.indexOf('/') == format.indexOf('/')) {
@@ -84,7 +80,6 @@ public class Main {
     }
 
     private static boolean bytesCompare(byte[]data1,byte[]data2){
-        //System.out.println(new String(data1)+new String(data2));
         boolean doesItMatch = false;
         for(int i = 0; !doesItMatch && (i<data1.length && i<data2.length);i++){
             doesItMatch = data2[i]==data1[i];
@@ -144,7 +139,6 @@ public class Main {
         try {
             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
             clientSocket.receive(receivePacket);
-
             receiveData = receivePacket.getData();
             System.out.println(receiveData.length);
             append(new String(receiveData));

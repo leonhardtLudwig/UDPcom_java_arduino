@@ -11,7 +11,6 @@ IPAddress ip(192, 168, 8, 193);
 unsigned int localPort = 9876;
 EthernetUDP udp;
 void setup() {
- //pinMode(LUX_PIN,INPUT);
  Ethernet.begin(mac,ip);
  delay(100);
  Serial.begin(9600);
@@ -30,8 +29,6 @@ void setup() {
  }while(!received);
  udp.read(buf,UDP_TX_PACKET_MAX_SIZE);
  String date(buf);
- /*setTime(date.substring(11,13).toInt(),date.substring(14,16).toInt(),date.substring(17,19).toInt(),date.substring(0,2).toInt,
- date.substring(3,5).toInt(),date.substring(6,10).toInt());*/
  setTime(date.substring(11,13).toInt(),date.substring(14,16).toInt(),date.substring(17,19).toInt(),date.substring(0,2).toInt(),date.substring(3,5).toInt(),date.substring(6,10).toInt());
 }
 int temp_lux = 0;
