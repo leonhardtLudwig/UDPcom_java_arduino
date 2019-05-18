@@ -27,8 +27,8 @@ public class Main {
         System.out.println("Client running at "+IPAddress);
         while(!hasBeenSetupped) {
 
-            sendData = new byte[1024];
-            receiveData = new byte[1024];
+            sendData = new byte[2000];
+            receiveData = new byte[2000];
 
             sendRequest("GETDATE");
             buf = getResponse();
@@ -45,9 +45,11 @@ public class Main {
             receiveData = new byte[35];
             System.out.println();
             lux = rand.nextInt(999);
-            sendInformations();
             if (lux>500){
+                receiveData = new byte[20000];
                 fileRequest();
+            }else{
+                sendInformations();
             }
             Thread.sleep(2000);
         }
@@ -139,6 +141,30 @@ public class Main {
 
     private static void fileRequest(){
         sendRequest("GETFILE");
+        try {
+            DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+            clientSocket.receive(receivePacket);
+
+            receiveData = receivePacket.getData();
+            System.out.println(receiveData.length);
+            append(new String(receiveData));
+            System.out.println("Data received from server" );
+        }catch (IOException e){
+            System.out.println("No datagram received");
+        }
+
+
+    }
+
+    private static void append(String s ) throws IOException {
+        if(s.charAt(0)!='1') {
+            System.out.println("Received data: "+s);
+            File file = new File("data.txt");
+            FileWriter fw = new FileWriter(file, true);
+            PrintWriter pw = new PrintWriter(fw);
+            pw.println(s);
+            pw.close();
+        }
     }
 
 }

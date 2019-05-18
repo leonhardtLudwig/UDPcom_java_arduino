@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.io.*;
 import java.net.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.Scanner;
@@ -20,7 +22,7 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception{
-        IPAddress = InetAddress.getByName("192.168.1.105");
+        IPAddress = InetAddress.getByName("192.168.8.25");
         //serverSocket = new DatagramSocket(9876);
         //192.168.1.105
         serverSocket = new DatagramSocket(9876,IPAddress);
@@ -36,13 +38,12 @@ public class Main {
             //String clientRequest = new String( receivePacket.getData());
             byte[] requestData = receivePacket.getData();
             System.out.println("Arrived data contains: "+(new String(requestData)));
-            if(bytesCompare(requestData,getDate)){
+            if(requestData!=null&&bytesCompare(requestData,getDate)){
                 System.out.println("Date request");
                 sendDate();
-                requestData = null;
             }
-            if (requestData!=null&&bytesCompare(requestData,date)){
-                System.out.println("Client information");
+            if (requestData!=null&&bytesCompare(requestData,date)&&!bytesCompare(requestData,getFile)&&!bytesCompare(requestData,getDate)){
+                System.out.println("Client information from: "+receivePacket.getAddress());
                 append(new String(requestData));
             }
             if(requestData!=null&&bytesCompare(requestData,getFile)){
@@ -55,25 +56,12 @@ public class Main {
 
     private static void append(String s ) throws IOException {
         File file = new File("data.txt");
-        FileWriter fw = new FileWriter(file, true);
-        PrintWriter pw = new PrintWriter(fw);
-        pw.println(s);
+        if(!s.equals("GETFILE\0")&&!s.equals("GETDATE\0")){
+            FileWriter fw = new FileWriter(file, true);
+            PrintWriter pw = new PrintWriter(fw);
+            pw.println(s);
         pw.close();
-    }
-
-    private static String waitInfo(){
-        System.out.println("Waiting info from client...");
-        String response = null;
-        try {
-            DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-            serverSocket.receive(receivePacket);
-            response = new String(receivePacket.getData());
-            receiveData = receivePacket.getData();
-            System.out.println("Client Data" + response);
-        }catch (IOException e){
-            System.out.println("No datagram received");
         }
-        return response;
     }
 
     private static boolean bytesCompare(byte[]data1,byte[]data2){
@@ -111,17 +99,23 @@ public class Main {
     }
 
     private static void sendFile(){
+
         try{
-        BufferedReader fr = new BufferedReader(new InputStreamReader(new FileInputStream(new File("data.txt"))));
-        String line = "";
-        try{
-        while((line = fr.readLine()) != null) {
-            System.out.println(line);
-        }
+            byte[]send = Files.readAllBytes(Paths.get("data.txt"));
+            //byte[]send = readFileToByteArray(new File("data.txt"));
+            System.out.println("File size "+send.length+" bytes");
+            InetAddress IPAddress = receivePacket.getAddress();
+            int port = receivePacket.getPort();
+            sendData = new byte[send.length];
+            sendData = send;
+            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+            serverSocket.send(sendPacket);
+            System.out.println("File successfully sent to "+ IPAddress);
         }catch (IOException e){
-            System.out.println("Corrupted file");
-        }}catch(FileNotFoundException e){
-            System.out.println("File doesn't exist");
+            System.out.println("ERROR!DATAGRAM HAS NOT BEEN SENT");
         }
     }
+
+
+
 }
